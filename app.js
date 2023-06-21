@@ -1,14 +1,17 @@
-    // *********************************
-    // Filename: app.js
-    // Author: Jonah Greening
-    // Purpose: Main code to run the initialization application
-    // Date: 06-20-2023
-    // Date revised:
-    // **********************************
+// *********************************
+// Filename: app.js
+// Author: Jonah Greening
+// Purpose: Main code to run the initialization application
+// Date: 06-20-2023
+// Date revised:
+// **********************************
+
 
 // Global imports
 const fs = require("fs");
 const path = require("path");
+const { initApp } = require("./init.js");
+
 
 global.DEBUG = true;
 
@@ -16,9 +19,10 @@ global.DEBUG = true;
 
 const myArgs = process.argv.slice(2);
 
-// Using the first argument as the command, if no command is given, uses optional chaining to default to help
 
-const command = myArgs[0]?.toLowerCase() || "--help";
+// Using the first argument as the command
+
+const command = myArgs[0]?.toLowerCase();
 
 // Using a switch statement to determine which command was passed to the app
 
@@ -28,7 +32,7 @@ switch (command) {
   case "init":
   case "i":
     if (DEBUG) console.log(myArgs[0], "- initialize the app.");
-    //initializeApp();
+    initApp();
     break;
 
     // If the command is config or c, run the configApp() function

@@ -3,8 +3,8 @@ app <command> <option>
 Usage:
 
 app --help                                  displays help for app usage
-app --init all                              creates folder structure and configuration files
-app init --mk                               creates just the folder structure
+app init --all                              creates folder structure and configuration files
+app init --mkdir                            creates the folder structure
 app init --cat                              creates the default configuration files
 app init --help                             displays help for initization processes
 app config --show                           displays the current configuration files in a list

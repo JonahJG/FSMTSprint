@@ -3,7 +3,7 @@ app <command> <option>
 Usage:
   app --help                                  displays help for app usage
   app --init all                              creates folder structure and configuration files
-  app init --mk                               creates just the folder structure
+  app init --mkdir                               creates the folder structure
   app init --cat                              creates the default configuration files
   app init --help                             displays help for initialization processes
   app config --show                           displays the current configuration files in a list
@@ -20,28 +20,29 @@ Usage:
   app token --help                            displays help for the token processes
 
 Description:
-  This is a command-line interface (CLI) application for various tasks. It provides functionality for initializing the app, configuring settings, and managing user tokens.
+  This is a command-line interface (CLI) application for various tasks. It provides functionality for initializing a new app, configuring settings, and managing user tokens.
 
 Commands:
-  --help                 Displays the help message for the overall usage of the app.
+  --help                                      Displays the help message for the overall usage of the app.
 
 Initialization Commands:
-  init --mk              Creates only the folder structure for the app.
-  init --cat             Creates the default configuration files.
-  init --help            Displays help for the initialization processes.
+  init --mkdir                                Creates the folder structure for the app.
+  init --cat                                  Creates the default configuration files.
+  init --help                                 Displays help for the initialization processes.
 
 Configuration Commands:
-  config --show          Displays the current configuration files in a list.
-  config --reset         Resets the configuration files to their default values.
-  config --set           Sets a specific configuration setting.
-  config --help          Displays help for the configuration processes.
+  config --show                               Displays the current configuration files in a list.
+  config --reset                              Resets the configuration files to their default values.
+  config --set                                Sets a specific configuration setting.
+  config --help                               Displays help for the configuration processes.
 
 Token Commands:
-  token --count          Displays the amount of tokens that have been created.
-  token --new <username> Generates a new token for the specified username and saves it to the JSON file.
-  token --update p <username> <phone>     Updates the phone number for the specified user in the JSON file.
-  token --update e <username> <email>     Updates the email address for the specified user in the JSON file.
-  token --fetch u <username>              Fetches the token for the specified username.
-  token --fetch e <email>                 Fetches the token for the specified email.
-  token --fetch p <phone>                 Fetches the token for the specified phone number.
-  token --help           Displays help for the token processes.
+  token --count                               Displays the amount of tokens that have been created.
+  token --new <username>                      Generates a new token for the specified username and saves it to the JSON file.
+  token --update p <username> <phone>         Updates the phone number for the specified user in the JSON file.
+  token --update e <username> <email>         Updates the email address for the specified user in the JSON file.
+  token --fetch u <username>                  Fetches the token for the specified username.
+  token --fetch e <email>                     Fetches the token for the specified email.
+  token --fetch p <phone>                     Fetches the token for the specified phone number.
+  token --help                                Displays help for the token processes.
+
