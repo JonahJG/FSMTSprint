@@ -6,11 +6,11 @@ app --help                                  displays help for app usage
 app init --all                              creates folder structure and configuration files
 app init --mkdir                            creates the folder structure
 app init --cat                              creates the default configuration files
-app init --help                             displays help for initization processes
+app init --help                             displays help for app usage
 app config --show                           displays the current configuration files in a list
 app config --reset                          resets the configuration files to default
 app config --set                            sets a specific configuration setting
-app config --help                           displays help for configuration processes
+app config --help                           displays help for app usage 
 app token --count                           displays the amount of tokens that have been created
 app token --new <username>                  generates a new token for the username inputted, and saves the token to the json file
 app token --update p <username> <phone>     updates the phone number for the specified user in the json file
@@ -18,6 +18,6 @@ app token --update e <username> <email>     updates the email address for the sp
 app token --fetch u <username>              fetches the token for the specified username
 app token --fetch e <email>                 fetches the token for the specified email
 app token --fetch p <phone>                 fetches the token for the specified phone number
-app token --help                            displays help for the token processes
+app token --help                            displays help for app usage
 
  

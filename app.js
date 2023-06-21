@@ -1,7 +1,7 @@
 // *********************************
 // Filename: app.js
 // Author: Jonah Greening
-// Purpose: Main code to run the initialization application
+// Purpose: Main code to run the initialization application CLI
 // Date: 06-20-2023
 // Date revised:
 // **********************************
@@ -11,6 +11,7 @@
 const fs = require("fs");
 const path = require("path");
 const { initApp } = require("./init.js");
+const { configApp } = require("./config.js");
 
 
 global.DEBUG = true;
@@ -39,7 +40,7 @@ switch (command) {
   case "config":
   case "c":
     if (DEBUG) console.log(myArgs[0], "- display the configuration file.");
-    //configApp();
+    configApp();
     break;
 
     // If the command is token or t, run the tokenApp() function
