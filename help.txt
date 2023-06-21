@@ -26,7 +26,7 @@ Commands:
   --help                                      Displays the help message for the overall usage of the app.
 
 Initialization Commands:
-  init --mk                                   Creates the folder structure for the app.
+  init --mkdir                                Creates the folder structure for the app.
   init --cat                                  Creates the default configuration files.
   init --help                                 Displays help for the initialization processes.
 
@@ -45,3 +45,4 @@ Token Commands:
   token --fetch e <email>                     Fetches the token for the specified email.
   token --fetch p <phone>                     Fetches the token for the specified phone number.
   token --help                                Displays help for the token processes.
+

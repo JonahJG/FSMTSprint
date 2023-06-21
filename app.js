@@ -6,16 +6,19 @@
 // Date revised:
 // **********************************
 
+
 // Global imports
 const fs = require("fs");
 const path = require("path");
 const { initApp } = require("./init.js");
+
 
 global.DEBUG = true;
 
 // Slicing the first two arguments off the array, leaving only the arguments that are passed to the app
 
 const myArgs = process.argv.slice(2);
+
 
 // Using the first argument as the command
 
