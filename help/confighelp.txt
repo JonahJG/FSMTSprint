@@ -1,0 +1,35 @@
+CLI Configuration Help
+
+Configuration Commands:
+  config --show:
+    This command displays the current configuration files in a list. It shows the current values of the configuration settings.
+
+  config --reset:
+    This command resets the configuration files to their default values. It restores the initial/default configuration settings.
+
+  config --set:
+    This command allows you to set a specific configuration setting. You need to provide a key-value pair to update the configuration.
+
+  config --help:
+    This command displays help for the configuration processes. It provides an overview of the available configuration commands and their details.
+
+Usage:
+  To use the configuration commands, run the following command in your CLI:
+    node app config <command> <key> <value>
+
+  Replace <command> with one of the configuration commands mentioned above.
+  Replace <key> with the configuration setting you want to modify.
+  Replace <value> with the new value you want to set for the configuration setting.
+
+Examples:
+  - Display the current configuration:
+    node app config --show
+
+  - Reset the configuration to default values:
+    node app config --reset
+
+  - Set a specific configuration setting:
+    node app config --set <key> <value>
+
+  - Display help for configuration processes:
+    node app config --help

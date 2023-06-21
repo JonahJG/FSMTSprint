@@ -1,0 +1,32 @@
+CLI Initialization Help
+
+Initialization Commands:
+  init --mkdir                                Creates the folder structure for the app.
+  init --cat                                  Creates the default configuration files.
+  init --help                                 Displays help for the initialization processes.
+
+Command Details:
+  init --mkdir:
+    This command creates the folder structure for the app. It sets up the necessary directories and subdirectories to organize the application files.
+
+  init --cat:
+    This command creates the default configuration files. It generates the initial configuration files with default settings.
+
+  init --help:
+    This command displays help for the initialization processes. It provides an overview of the available initialization commands and their details.
+
+Usage:
+  To use the initialization commands, run the following command in your CLI:
+    node app init <command> 
+
+  Replace <command> with one of the initialization commands mentioned above.
+
+Examples:
+  - Create the folder structure:
+    node app init --mkdir
+
+  - Generate default configuration files:
+    node app init --cat
+
+  - Display help for initialization processes:
+    node app init --help

@@ -16,7 +16,7 @@ const myArgs = process.argv.slice(3);
 
 // createFolders function to create the folders needed for the application
 function createFolders() {
-  const folders = ['json', 'logs', 'routes'];
+  const folders = ['json', 'logs', 'routes', 'views'];
   folders.forEach(folder => {
     if (!fs.existsSync(folder)) {
       fs.mkdirSync(folder);
@@ -72,9 +72,8 @@ function initApp() {
       break;
 
     case "--help":
-    case "--h":
       console.log("Displaying help file...");
-      const helpFilePath = path.join(__dirname, "help.txt");
+      const helpFilePath = path.join(__dirname, "help/inithelp.txt");
       fs.readFile(helpFilePath, (error, data) => {
         if (error) throw error;
         console.log(data.toString());

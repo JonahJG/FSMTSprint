@@ -1,4 +1,4 @@
-app <command> <option>
+app <command> <option> <
 
 Usage:
 
@@ -9,7 +9,7 @@ app init --cat                              creates the default configuration fi
 app init --help                             displays help for app usage
 app config --show                           displays the current configuration files in a list
 app config --reset                          resets the configuration files to default
-app config --set                            sets a specific configuration setting
+app config --set <value> <key>              sets a specific configuration setting
 app config --help                           displays help for app usage 
 app token --count                           displays the amount of tokens that have been created
 app token --new <username>                  generates a new token for the username inputted, and saves the token to the json file
