@@ -1,3 +1,11 @@
+// *********************************
+// Filename: token.js
+// Author: Jonah Greening
+// Purpose: Code for the token command
+// Date: 06-22-2023
+// Date revised: 06-22-2023
+// **********************************
+
 //Global imports
 
 const fs = require("fs");
@@ -15,8 +23,8 @@ const command = myArgs[0]?.toLowerCase();
 // Setting the username, email, and phone variables
 
 // Declaring constants 
-const jsonFolder = 'json';
-const tokensFilePath = path.join(jsonFolder, 'tokens.json');
+const jsonFolder = "json";
+const tokensFilePath = path.join(jsonFolder, "tokens.json");
 
 const username = myArgs[1];
 const email = myArgs[1];
@@ -30,7 +38,7 @@ function tokenCount() {
     if (fs.existsSync(tokensFilePath)) {
       try {
         // Read the contents of the tokens.json file
-        const fileContent = fs.readFileSync(tokensFilePath, 'utf8');
+        const fileContent = fs.readFileSync(tokensFilePath, "utf8");
   
         // Parse the JSON data
         const tokensData = JSON.parse(fileContent);
@@ -38,12 +46,12 @@ function tokenCount() {
         // Count the number of tokens
         const tokenCount = tokensData.tokens.length;
   
-        console.log(`Number of tokens in tokens.json: ${tokenCount}`);
+        console.log(`Number of tokens: ${tokenCount}`);
       } catch (error) {
-        console.error('Error occurred while reading the tokens file:', error);
+        console.error("Error occurred while reading the tokens file:", error);
       }
     } else {
-      console.log('tokens.json file not found.');
+      console.log("tokens.json file not found.");
     }
   }
   
@@ -55,7 +63,7 @@ function tokenCount() {
     if (fs.existsSync(tokensFilePath)) {
       try {
         // Read the existing tokens from the file
-        const existingTokens = JSON.parse(fs.readFileSync(tokensFilePath, 'utf8'));
+        const existingTokens = JSON.parse(fs.readFileSync(tokensFilePath, "utf8"));
   
         // Find the token object for the specified username, email, or phone
         const userToken = existingTokens.tokens.find(
@@ -73,7 +81,7 @@ function tokenCount() {
             },
             function(err, newToken) {
               if (err) {
-                console.error('Error occurred while generating the token:', err);
+                console.error("Error occurred while generating the token:", err);
                 return;
               }
   
@@ -86,13 +94,13 @@ function tokenCount() {
             }
           );
         } else {
-          console.log('Token not found for:', username || email || phone);
+          console.log("Token not found for:", username || email || phone);
         }
       } catch (error) {
-        console.error('Error occurred while generating the token:', error);
+        console.error("Error occurred while generating the token:", error);
       }
     } else {
-      console.log('tokens.json file not found.');
+      console.log("tokens.json file not found.");
     }
   }
   

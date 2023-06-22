@@ -3,7 +3,7 @@
 // Author: Jonah Greening
 // Purpose: Initialize the application
 // Date: 06-21-2023
-// Date revised:
+// Date revised: 
 // **********************************
 
 // Global imports
@@ -25,26 +25,58 @@ function createFolders() {
   });
 }
 
+// createFolders function to create the folders needed for the application
+function createFolders() {
+  const folders = ['json', 'logs', 'routes', 'views'];
+  let createdCount = 0;
+
+  folders.forEach((folder) => {
+    if (!fs.existsSync(folder)) {
+      fs.mkdirSync(folder);
+      console.log(`Created folder: ${folder}`);
+      createdCount++;
+    }
+  });
+
+  console.log(`Total folders created: ${createdCount}`);
+}
+
 // createFile function to create the files needed for the application
 function createFile() {
   const jsonFolder = 'json';
   const configFilePath = path.join(jsonFolder, 'config.json');
   const tokensFilePath = path.join(jsonFolder, 'tokens.json');
 
+  let createdCount = 0;
+
   // Create the config.json file if it doesn't exist
   if (!fs.existsSync(configFilePath)) {
     const configData = { name: "ConfigCLI", version: "1.0.0", description: "A simple CLI for the app", main: "app.js", superuser: "admin", database: 'Nothing found here ¯\_(ツ)_/¯ ' };
     fs.writeFileSync(configFilePath, JSON.stringify(configData, null, 4));
     console.log(`Created file: ${configFilePath}`);
+    createdCount++;
   }
 
   // Create the tokens.json file if it doesn't exist
   if (!fs.existsSync(tokensFilePath)) {
-    const tokensData = { token: 'abc123' }; // Example data for tokens.json
+    const tokensData = {
+      tokens: [
+        {
+          username: 'admin',
+          email: 'admin@example.com',
+          token: 'a6hf6s',
+          phone: '11231231234',
+        },
+      ],
+    };
     fs.writeFileSync(tokensFilePath, JSON.stringify(tokensData, null, 4));
     console.log(`Created file: ${tokensFilePath}`);
+    createdCount++;
   }
+
+  console.log(`Total files created: ${createdCount}`);
 }
+
 
 // Using the first argument as the command and using ? to check if the argument is null or undefined
 const command = myArgs[0]?.toLowerCase();

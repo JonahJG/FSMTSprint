@@ -3,7 +3,7 @@
 // Author: Jonah Greening
 // Purpose: Code for the config command
 // Date: 06-21-2023
-// Date revised:
+// Date revised: 06-22-2023
 // **********************************
 
 const fs = require("fs");
@@ -133,7 +133,7 @@ function configApp() {
               break;
     default:
       console.log("Displaying the usage file:");
-      const usageFilePath = path.join(__dirname, "help/usage.txt");
+      const usageFilePath = path.join(__dirname, "views/usage.txt");
       fs.readFile(usageFilePath, (error, data) => {
         if (error) throw error;
         console.log(data.toString());
