@@ -55,7 +55,7 @@ case "--help":
 case "--h":
     if (DEBUG) console.log(myArgs[0], "- display the help file.");
     // display the help.txt file
-    const helpFilePath = path.join(__dirname, "help.txt");
+    const helpFilePath = path.join(__dirname, "help/apphelp.txt");
     fs.readFile(helpFilePath, (error, data) => {
         if (error) throw error;
         console.log(data.toString());
