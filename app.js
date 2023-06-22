@@ -12,6 +12,7 @@ const fs = require("fs");
 const path = require("path");
 const { initApp } = require("./init.js");
 const { configApp } = require("./config.js");
+const { tokenApp } = require("./token.js");
 
 
 global.DEBUG = true;
@@ -47,7 +48,7 @@ switch (command) {
   case "token":
   case "t":
     if (DEBUG) console.log(myArgs[0], "- generate a user token.");
-    //tokenApp();
+    tokenApp();
     break;
 
 case "--help":
