@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "date-fns": "^2.30.0",
     "moment": "^2.29.4",
-    "random-token-generator": "^1.0.2"
-  },
-  "devDependencies": {}
+    "random-token-generator": "^1.0.2",
+    "uuid": "^9.0.0"
+  }
 }
