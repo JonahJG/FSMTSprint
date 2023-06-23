@@ -2,15 +2,19 @@ CLI Configuration Help
 
 Configuration Commands:
   config --show:
+  c --show:
     This command displays the current configuration files in a list. It shows the current values of the configuration settings.
 
   config --reset:
+  c --reset:
     This command resets the configuration files to their default values. It restores the initial/default configuration settings.
 
   config --set:
+  c --set:
     This command allows you to set a specific configuration setting. You need to provide a key-value pair to update the configuration.
-
+  
   config --help:
+  c --help
     This command displays help for the configuration processes. It provides an overview of the available configuration commands and their details.
 
 Usage:

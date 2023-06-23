@@ -3,60 +3,69 @@
 // Author: Jonah Greening
 // Purpose: Code for the config command
 // Date: 06-21-2023
-// Date revised: 06-22-2023
+// Date revised: 06-23-2023
 // **********************************
 
 const fs = require("fs");
 const path = require("path");
 const logEvents = require("./logEvents");
-global.DEBUG = true;
 
+// Slicing the first arguments off the array, leaving only the arguments that are passed to the app
 const myArgs = process.argv.slice(3);
+
+// Using the first argument as the command and ? to check if it is null or undefined
 const command = myArgs[0]?.toLowerCase();
+
+// Using the second and third arguments as the key and value
 const key = myArgs[1];
 const value = myArgs[2];
 
-function readFileAsync(filePath) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, (error, data) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-}
-
-function writeFileAsync(filePath, data) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(filePath, data, (error) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve();
-      }
-    });
-  });
-}
-
-async function displayApp() {
-  await logEvents("command", "info", "displayed the configuration");
+// Function to display the current configuration
+function displayApp() {
+  // Logging the event
+  logEvents("displayApp", "info", "displayed the configuration");
 
   const jsonFolder = "json";
   const configFilePath = path.join(jsonFolder, "config.json");
 
+  // Check if the config.json file exists
   if (fs.existsSync(configFilePath)) {
     try {
-      const data = await readFileAsync(configFilePath);
-      const configData = JSON.parse(data);
+      // Read the contents of the config.json file
+      fs.readFile(configFilePath, (error, data) => {
+        if (error) {
+          // Error occurred while reading the configuration file
+          logEvents("displayApp", "error", "error occurred while reading the configuration file");
 
-      console.log("Current Configuration:");
-      console.log(configData);
-    } catch (error) {
-      await logEvents("command", "error", "error occurred while reading or parsing the configuration file");
+          if (DEBUG) {
+            console.error("Error occurred while reading the configuration file:", error);
+          }
+
+          throw error;
+        }
+
+        try {
+          // Parse the JSON data
+          const configData = JSON.parse(data);
+
+          // Display the configuration
+          console.log("Current Configuration:");
+          console.log(configData);
+        } catch (parseError) {
+          // Error occurred while parsing the configuration file
+          logEvents("displayApp", "error", "error occurred while parsing the configuration file");
+
+          if (DEBUG) {
+            console.error("Error occurred while parsing the configuration file:", parseError);
+          }
+        }
+      });
+    } catch (readError) {
+      // Error occurred while reading the configuration file
+      logEvents("displayApp", "error", "error occurred while reading the configuration file");
+
       if (DEBUG) {
-        console.error("Error occurred while reading or parsing the configuration file:", error);
+        console.error("Error occurred while reading the configuration file:", readError);
       }
     }
   } else {
@@ -64,18 +73,24 @@ async function displayApp() {
   }
 }
 
-async function resetConfig() {
-  await logEvents("command", "info", "resetting the configuration");
+// Function to reset the configuration
+function resetConfig() {
+  // Logging the event
+  logEvents("resetConfig", "info", "reset the configuration");
 
   const jsonFolder = "json";
   const configFilePath = path.join(jsonFolder, "config.json");
 
+  // Check if the config.json file exists
   if (fs.existsSync(configFilePath)) {
     try {
-      await fs.promises.unlink(configFilePath);
+      // Delete the config.json file
+      fs.unlinkSync(configFilePath);
       console.log("Configuration reset.");
     } catch (error) {
-      await logEvents("command", "error", "error occurred while resetting the configuration");
+      // Error occurred while resetting the configuration
+      logEvents("resetConfig", "error", "error occurred while resetting the configuration");
+
       if (DEBUG) {
         console.error("Error occurred while resetting the configuration:", error);
       }
@@ -85,25 +100,66 @@ async function resetConfig() {
   }
 }
 
-async function setConfig(key, value) {
-  await logEvents("command", "info", `set configuration key: ${key}, value: ${value}`);
+// Function to set a specific configuration setting
+function setConfig(key, value) {
+  // Logging the event
+  logEvents("setConfig", "info", `set configuration key: ${key}, value: ${value}`);
 
   const jsonFolder = "json";
   const configFilePath = path.join(jsonFolder, "config.json");
 
+  // Check if the config.json file exists
   if (fs.existsSync(configFilePath)) {
     try {
-      const data = await readFileAsync(configFilePath);
-      const configData = JSON.parse(data);
+      // Read the contents of the config.json file
+      fs.readFile(configFilePath, (error, data) => {
+        if (error) {
+          // Error occurred while reading the configuration file
+          logEvents("setConfig", "error", "error occurred while reading the configuration file");
 
-      configData[key] = value;
+          if (DEBUG) {
+            console.error("Error occurred while reading the configuration file:", error);
+          }
 
-      await writeFileAsync(configFilePath, JSON.stringify(configData, null, 4));
-      console.log("Configuration updated.");
-    } catch (error) {
-      await logEvents("command", "error", "error occurred while reading, parsing, or writing the configuration file");
+          throw error;
+        }
+
+        try {
+          // Parse the JSON data
+          const configData = JSON.parse(data);
+
+          // Update the specific configuration setting
+          configData[key] = value;
+
+          // Write the updated configuration back to the file
+          fs.writeFile(configFilePath, JSON.stringify(configData, null, 4), (error) => {
+            if (error) {
+              // Error occurred while writing the configuration file
+              logEvents("setConfig", "error", "error occurred while writing the configuration file");
+
+              if (DEBUG) {
+                console.error("Error occurred while writing the configuration file:", error);
+              }
+
+              throw error;
+            }
+            console.log("Configuration updated.");
+          });
+        } catch (parseError) {
+          // Error occurred while parsing the configuration file
+          logEvents("setConfig", "error", "error occurred while parsing the configuration file");
+
+          if (DEBUG) {
+            console.error("Error occurred while parsing the configuration file:", parseError);
+          }
+        }
+      });
+    } catch (readError) {
+      // Error occurred while reading the configuration file
+      logEvents("setConfig", "error", "error occurred while reading the configuration file");
+
       if (DEBUG) {
-        console.error("Error occurred while reading, parsing, or writing the configuration file:", error);
+        console.error("Error occurred while reading the configuration file:", readError);
       }
     }
   } else {
@@ -111,50 +167,61 @@ async function setConfig(key, value) {
   }
 }
 
-async function configApp() {
+// Function to handle the configuration app
+function configApp() {
   switch (command) {
     case "--show":
-      await logEvents("command", "info", "displayed the configuration");
-      await displayApp();
+      // Display the configuration
+      logEvents("configApp", "info", "displaying the configuration");
+      displayApp();
       break;
     case "--reset":
-      await logEvents("command", "info", "reset the configuration");
-      await resetConfig();
+      // Reset the configuration
+      logEvents("configApp", "info", "resetting the configuration");
+      resetConfig();
       break;
     case "--set":
       if (key && value) {
-        await logEvents("command", "info", `setting configuration key: ${key}, value: ${value}`);
-        await setConfig(key, value);
+        // Set a specific configuration setting
+        logEvents("configApp", "info", `setting configuration key: ${key}, value: ${value}`);
+        setConfig(key, value);
       } else {
         console.log("Please provide a valid key-value pair to set a configuration setting.");
       }
       break;
     case "--help":
-      await logEvents("command", "info", "displayed the help file");
+      // Display the help file
+      logEvents("configApp", "info", "displaying the help file");
       console.log("Displaying the help file:");
-      try {
-        const helpFilePath = path.join(__dirname, "help/confighelp.txt");
-        const data = await readFileAsync(helpFilePath);
-        console.log(data.toString());
-      } catch (error) {
-        await logEvents("command", "error", "error occurred while reading the help file");
-        if (DEBUG) {
-          console.error("Error occurred while reading the help file:", error);
+      const helpFilePath = path.join(__dirname, "help/confighelp.txt");
+      fs.readFile(helpFilePath, (error, data) => {
+        if (error) {
+          // Error occurred while reading the help file
+          logEvents("command", "error", "error occurred while reading the help file");
+
+          if (DEBUG) {
+            console.error("Error occurred while reading the help file:", error);
+          }
+
+          return;
         }
-      }
+        console.log(data.toString());
+      });
       break;
     default:
-      await logEvents("command", "info", "displayed the usage file");
+      // Display the usage file
+      logEvents("configApp", "info", "displaying the usage file");
       console.log("Displaying the usage file:");
-      try {
-        const usageFilePath = path.join(__dirname, "views/usage.txt");
-        const data = await readFileAsync(usageFilePath);
-        console.log(data.toString());
-      } catch (error) {
+      const usageFilePath = path.join(__dirname, "views/usage.txt");
+      fs.readFile(usageFilePath, (error, data) => {
+        if (error) throw error;
+
         if (DEBUG) {
           console.error("Error occurred while reading the usage file:", error);
         }
-      }
+
+        console.log(data.toString());
+      });
       break;
   }
 }

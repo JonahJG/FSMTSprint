@@ -6,34 +6,55 @@ Usage:
 app <command> <option>
 
 Commands:
-app init Initialization commands for folder structure and configuration files
-app config Configuration commands for managing app settings
-app token Token commands for token generation and retrieval
+app init                        Initialization commands for folder structure and configuration files
+app config                      Configuration commands for managing app settings
+app token                       Token commands for token generation and retrieval
+app --server                    Starts the server on port 3000
 
 Options:
 --help Display help for app usage
 
 Initialization Commands:
-app init --all Creates folder structure and configuration files
-app init --mkdir Creates the folder structure
-app init --cat Creates the default configuration files
-app init --help Display help for app initialization
+app init --all                                      Creates folder structure and configuration files
+app i -all 
+app init --mkdir                                    Creates the folder structure
+app i --mkdir 
+app init --cat                                      Creates the default configuration files
+app i --cat
+app init --help                                     Display help for app initialization
+app i --h
 
 Configuration Commands:
-app config --show Displays the current configuration files in a list
-app config --reset Resets the configuration files to default
-app config --set Sets a specific configuration setting
-app config --help Display help for app configuration
+app config --show                                   Displays the current configuration files in a list
+app c --show
+app config --reset                                  Resets the configuration files to default
+app c --reset
+app config --set                                    Sets a specific configuration setting
+app c --set
+app config --help                                   Display help for app configuration
+app c --help
 
 Token Commands:
-app token --count Displays the amount of tokens that have been created
-app token --new <username> Generates a new token for the specified username, creates a new user if one does not exist, and saves the data to the JSON file
-app token --update p <username> <phone> Updates the phone number for the specified user in the JSON file
-app token --update e <username> <email> Updates the email address for the specified user in the JSON file
-app token --fetch u <username> Fetches the token for the specified username
-app token --fetch e <email> Fetches the token for the specified email
-app token --fetch p <phone> Fetches the token for the specified phone number
-app token --help Display help for token usage
+app token --count                                   Displays the amount of tokens that have been created
+app t --count
+app token --new <username>                          Generates a new token for the specified username, creates a new user if one does not exist, and saves the data to the JSON file
+app t --new <username>
+app token --update p <username> <phone>             Updates the phone number for the specified user in the JSON file
+app t --update p <username> <phone>
+app token --update e <username> <email>             Updates the email address for the specified user in the JSON file
+app t --update e <username> <email>
+app token --fetch u <username>                      Fetches the token for the specified username
+app t --fetch u <username>
+app token --fetch e <email>                         Fetches the token for the specified email
+app t --fetch e <email>
+app token --fetch p <phone>                         Fetches the token for the specified phone number
+app t --fetch p <phone>
+app token --help                                    Display help for token usage
+app t --help 
+
+Server Command:
+app --server                                        Starts the server on port 3000
+app --s 
 
 Usage Examples:
 
@@ -41,7 +62,7 @@ Initialize the app:
 app init --all
 
 Display the current configuration files:
-app config --show
+app c --show
 
 Set a specific configuration setting:
 app config --set value key
@@ -50,10 +71,9 @@ Generate a new token for a username:
 app token --new john.doe
 
 Update the phone number for a user:
-app token --update p john.doe +1234567890
+app t --update p john.doe +1234567890
 
-Fetch the token for a username:
-app token --fetch u john.doe
+
 
 For more details on each command, use the following format:
 app <command> --help
