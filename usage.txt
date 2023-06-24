@@ -1,9 +1,12 @@
 app <command> <option> 
 
+Commands can be help or h, init or i, config or c, token or t, server or s 
+
 Usage:
 
+app --server                                starts the server on port 3000
 app --help                                  displays help for app usage
-app init --all                              creates folder structure and configuration files
+app init --all                              creates folder structure and configuration files                            
 app init --mkdir                            creates the folder structure
 app init --cat                              creates the default configuration files
 app init --help                             displays help for app usage
@@ -12,7 +15,7 @@ app config --reset                          resets the configuration files to de
 app config --set <value> <key>              sets a specific configuration setting
 app config --help                           displays help for app usage 
 app token --count                           displays the amount of tokens that have been created
-app token --new <username>                  generates a new token for the username input 
+app token --new <username>                  generates a new token for the username input
 app token --update p <username> <phone>     updates the phone number for the specified user in the json file
 app token --update e <username> <email>     updates the email address for the specified user in the json file
 app token --fetch u <username>              fetches the token for the specified username

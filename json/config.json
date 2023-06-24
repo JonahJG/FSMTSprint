@@ -1,8 +1,0 @@
-{
-    "name": "ConfigCLI",
-    "version": "1.0.1",
-    "description": "A simple CLI for the app",
-    "main": "app.js",
-    "superuser": "admin",
-    "database": "Nothing found here ¯_(ツ)_/¯ "
-}

@@ -11,9 +11,9 @@ const path = require("path");
 const { initApp } = require("./init.js");
 const { configApp } = require("./config.js");
 const { tokenApp } = require("./token.js");
-const logEvents = require("./logEvents");
+const logEvents = require("./logEvents.js");
 
-global.DEBUG = true;
+global.DEBUG = false;
 
 // Slicing the first two arguments off the array, leaving only the arguments that are passed to the app
 const myArgs = process.argv.slice(2);
@@ -44,14 +44,23 @@ switch (command) {
     tokenApp();
     break;
 
-  case "--help":
-  case "--h":
+// If the command is server or s, log the server initialization event and serve the index.html file
+case "server":
+case "s":
+      if (DEBUG) console.log(myArgs[0], "- executing server.js");
+      logEvents("app", "info", "server has been initialized");
+      require("./server.js");
+      break;
+
+  case "help":
+  case "h":
     if (DEBUG) console.log(myArgs[0], "- display the help file.");
-    // display the help.txt file
-    const helpFilePath = path.join(__dirname, "apphelp.txt");
+    // display the apphelp.txt file
+    const helpFilePath = path.join(__dirname, "help/apphelp.txt");
     fs.readFile(helpFilePath, (error, data) => {
       if (DEBUG && error) throw error;
       if (!error) console.log(data.toString());
+      logEvents("app", "info", "displaying the help file.");
     });
     break;
 
