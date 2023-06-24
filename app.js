@@ -6,23 +6,16 @@
 // Date revised: 06-23-2023
 // **********************************
 
-const fs = require("fs");
-const path = require("path");
-const { initApp } = require("./init.js");
-const { configApp } = require("./config.js");
-const { tokenApp } = require("./token.js");
-const logEvents = require("./logEvents");
-
-global.DEBUG = true;
+global.DEBUG = false;
 
 const fs = require("fs");
 const path = require("path");
 const { initApp } = require("./init.js");
 const { configApp } = require("./config.js");
 const { tokenApp } = require("./token.js");
-const logEvents = require("./logEvents");
+const logEvents = require("./logEvents.js");
 
-global.DEBUG = true;
+global.DEBUG = false;
 
 // Slicing the first two arguments off the array, leaving only the arguments that are passed to the app
 const myArgs = process.argv.slice(2);
@@ -57,23 +50,25 @@ try {
       tokenApp();
       break;
 
-    // If the command is --help or --h, display the help file
-    case "--help":
-    case "--h":
-      if (DEBUG) console.log(myArgs[0], "- display the help file.");
-      logEvents("app", "info", `Command received: ${myArgs[0]}`);
-      // display the help.txt file
-      const helpFilePath = path.join(__dirname, "help/apphelp.txt");
-      try {
-        const data = fs.readFileSync(helpFilePath, "utf8");
-        console.log(data.toString());
-        logEvents("app", "info", "Help file displayed");
-      } catch (error) {
-        // error handling for when error occurs while reading the help file
-        console.error("Error occurred while reading the help file:", error);
-        logEvents("app", "error", "Error occurred while reading the help file: " + error);
-      }
+// If the command is server or s, log the server initialization event and serve the index.html file
+case "server":
+case "s":
+      if (DEBUG) console.log(myArgs[0], "- executing server.js");
+      logEvents("app", "info", "server has been initialized");
+      require("./server.js");
       break;
+
+  case "help":
+  case "h":
+    if (DEBUG) console.log(myArgs[0], "- display the help file.");
+    // display the apphelp.txt file
+    const helpFilePath = path.join(__dirname, "help/apphelp.txt");
+    fs.readFile(helpFilePath, (error, data) => {
+      if (DEBUG && error) throw error;
+      if (!error) console.log(data.toString());
+      logEvents("app", "info", "displaying the help file.");
+    });
+    break;
 
     // If the command is --server, execute server.js
     case "--server":

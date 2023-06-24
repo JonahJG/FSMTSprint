@@ -10,18 +10,21 @@
 const http = require("http");
 const fs = require("fs");
 const rtg = require("random-token-generator");
-const logEvents = require("./logEvents");
+const { logEvents } = require("./logEvents.js");
+const expirationTimestamp = Date.now() + 3 * 24 * 60 * 60 * 1000;
 
+// Create an HTTP server
 // Create an HTTP server
 const server = http.createServer((req, res) => {
   if (req.method === "GET") {
     // Serve the index.html file for GET requests
-    fs.readFile("views/index.html", (err, content) => {
+    fs.readFile("index.html", (err, content) => {
       if (err) {
         // Error occurred while reading the file
         logEvents("server", "error", "error reading file: " + err);
         res.statusCode = 500;
         res.end("Internal Server Error");
+        logEvents("server", "error", "error reading file: " + err);
         return;
       }
 
@@ -30,6 +33,7 @@ const server = http.createServer((req, res) => {
       res.end(content, "utf-8");
     });
   } else if (req.method === "POST") {
+    // Handle form submission for POST requests
     // Handle form submission for POST requests
     let data = "";
 
@@ -60,6 +64,7 @@ const server = http.createServer((req, res) => {
             logEvents("server", "error", "error occurred while generating the token: " + err);
             res.statusCode = 500;
             res.end("Internal Server Error");
+            logEvents("server", "error", "error generating token: " + err);
             return;
           }
 
@@ -69,7 +74,8 @@ const server = http.createServer((req, res) => {
             email,
             phone,
             token: newToken,
-            confirmed: false,
+            timestamp: Date.now(),
+            expiration: expirationTimestamp
           };
 
           // Read the existing JSON file containing tokens
@@ -79,6 +85,7 @@ const server = http.createServer((req, res) => {
               logEvents("server", "error", "error reading file: " + err);
               res.statusCode = 500;
               res.end("Internal Server Error");
+              logEvents("server", "error", "error reading file: " + err);
               return;
             }
 
@@ -88,7 +95,7 @@ const server = http.createServer((req, res) => {
               // Parse the JSON data from the file
               tokens = JSON.parse(jsonString);
             } catch (error) {
-              // Error occurred while parsing JSON
+              console.error("Error parsing JSON:", error);
               logEvents("server", "error", "error parsing JSON: " + error);
             }
 
@@ -102,22 +109,27 @@ const server = http.createServer((req, res) => {
                 logEvents("server", "error", "error writing file: " + err);
                 res.statusCode = 500;
                 res.end("Internal Server Error");
+                logEvents("server", "error", "error writing file: " + err);
                 return;
               }
 
               // User created successfully
               logEvents("server", "info", "user created successfully");
               res.statusCode = 200;
-              res.end("User created successfully");
+              res.end("user created successfully");
+
+              // Log the user creation event
+              logEvents("server", "info", "user created: " + JSON.stringify(newUser));
             });
           });
         }
       );
     });
   } else {
-    // Return a 404 Not Found response for other request methods
+    // For any other request method, respond with 404 Not Found
     res.statusCode = 404;
     res.end("Not Found");
+    logEvents("server", "error", "invalid request method");
   }
 });
 
