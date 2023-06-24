@@ -3,18 +3,21 @@
 // Author: Jonah Greening
 // Purpose: Code for the config command
 // Date: 06-21-2023
-// Date revised: 06-22-2023
+// Date revised: 06-23-2023
 // **********************************
 
 // Import modules
 const fs = require("fs");
 const path = require("path");
 const logEvents = require("./logEvents");
+global.DEBUG = true;
 
-
-// Retrieve command-line arguments
 const myArgs = process.argv.slice(3);
+
+// Using the first argument as the command and ? to check if it is null or undefined
 const command = myArgs[0]?.toLowerCase();
+
+// Using the second and third arguments as the key and value
 const key = myArgs[1];
 const value = myArgs[2];
 
@@ -51,20 +54,17 @@ async function displayApp() {
   const jsonFolder = "json";
   const configFilePath = path.join(jsonFolder, "config.json");
 
-  // Check if the configuration file exists
   if (fs.existsSync(configFilePath)) {
     try {
-      // Read the configuration file
       const data = await readFileAsync(configFilePath);
       const configData = JSON.parse(data);
 
       console.log("Current Configuration:");
       console.log(configData);
     } catch (error) {
-      // Log and handle any errors that occur during file reading or parsing
-      await logEvents("config", "error", "error occurred while reading or parsing the configuration file");
+      await logEvents("command", "error", "error occurred while reading or parsing the configuration file");
       if (DEBUG) {
-        console.error("Error occurred while reading or parsing the configuration file:", error);
+        console.error("Error occurred while reading the configuration file:", readError);
       }
     }
   } else {
@@ -99,7 +99,7 @@ async function resetConfig() {
 
 // Function to set a configuration key-value pair
 async function setConfig(key, value) {
-  await logEvents("config", "info", `set configuration key: ${key}, value: ${value}`);
+await logEvents("config", "info", `set configuration key: ${key}, value: ${value}`);
 
   const jsonFolder = "json";
   const configFilePath = path.join(jsonFolder, "config.json");
@@ -121,7 +121,7 @@ async function setConfig(key, value) {
       // Log and handle any errors that occur during file reading, parsing, or writing
       await logEvents("config", "error", "error occurred while reading, parsing, or writing the configuration file");
       if (DEBUG) {
-        console.error("Error occurred while reading, parsing, or writing the configuration file:", error);
+        console.error("Error occurred while reading the configuration file:", readError);
       }
     }
   } else {
@@ -129,9 +129,7 @@ async function setConfig(key, value) {
   }
 }
 
-// Main function to handle the configuration commands
 async function configApp() {
-  // Switch statement to handle different command options
   switch (command) {
     case "--show":
       // Display the application's configuration
@@ -139,51 +137,46 @@ async function configApp() {
       await displayApp();
       break;
     case "--reset":
-      // Reset the configuration
-      await logEvents("config", "info", "resetting the configuration");
+      await logEvents("command", "info", "reset the configuration");
       await resetConfig();
       break;
     case "--set":
       // Set a configuration key-value pair
       if (key && value) {
-        await logEvents("config", "info", `setting configuration key: ${key}, value: ${value}`);
+        await logEvents("command", "info", `setting configuration key: ${key}, value: ${value}`);
         await setConfig(key, value);
       } else {
         console.log("Please provide a valid key-value pair to set a configuration setting.");
       }
       break;
     case "--help":
-      // Display the help file
-      await logEvents("config", "info", "displaying the help file");
+      await logEvents("command", "info", "displayed the help file");
       console.log("Displaying the help file:");
       try {
-        // Read and display the help file
         const helpFilePath = path.join(__dirname, "help/confighelp.txt");
         const data = await readFileAsync(helpFilePath);
         console.log(data.toString());
       } catch (error) {
-        // Log and handle any errors that occur while reading the help file
-        await logEvents("config", "error", "error occurred while reading the help file");
+        await logEvents("command", "error", "error occurred while reading the help file");
         if (DEBUG) {
           console.error("Error occurred while reading the help file:", error);
         }
       }
       break;
     default:
-      // Display the usage file
-      await logEvents("config", "info", "displayed the usage file");
+      await logEvents("command", "info", "displayed the usage file");
       console.log("Displaying the usage file:");
       try {
-        // Read and display the usage file
         const usageFilePath = path.join(__dirname, "views/usage.txt");
         const data = await readFileAsync(usageFilePath);
         console.log(data.toString());
       } catch (error) {
-        // Log and handle any errors that occur while reading the usage file
         if (DEBUG) {
           console.error("Error occurred while reading the usage file:", error);
         }
-      }
+
+        console.log(data.toString());
+      };
       break;
   }
 }

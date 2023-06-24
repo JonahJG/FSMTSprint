@@ -141,15 +141,10 @@ function initApp() {
       // For any other command, display the usage file
       logEvents("init", "info", "displaying usage file");
       const usageFilePath = path.join(__dirname, "usage.txt");
-      try {
-        const data = fs.readFileSync(usageFilePath, "utf8");
-        console.log(data);
-      } catch (error) {
-        logEvents("init", "error", "error occurred while reading the usage file");
-        if (global.DEBUG) {
-          logEvents("init", "error", error);
-        }
-      }
+      fs.readFile(usageFilePath, (error, data) => {
+        if (error) throw error;
+        console.log(data.toString());
+      });
   }
 }
 
