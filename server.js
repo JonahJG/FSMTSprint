@@ -10,7 +10,7 @@
 const http = require("http");
 const fs = require("fs");
 const rtg = require("random-token-generator");
-const { logEvents } = require("./logEvents.js");
+const logEvents = require("./logEvents");
 const expirationTimestamp = Date.now() + 3 * 24 * 60 * 60 * 1000;
 
 // Create an HTTP server

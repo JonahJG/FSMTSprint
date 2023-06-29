@@ -2,8 +2,6 @@ App Token Help
 
 Initialization Commands:
 
-Initialization Commands:
-
   token --count:
   t --count:
     This command displays the amount of tokens that have been created.

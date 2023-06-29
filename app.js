@@ -50,16 +50,9 @@ try {
       tokenApp();
       break;
 
-// If the command is server or s, log the server initialization event and serve the index.html file
-case "server":
-case "s":
-      if (DEBUG) console.log(myArgs[0], "- executing server.js");
-      logEvents("app", "info", "server has been initialized");
-      require("./server.js");
-      break;
 
-  case "help":
-  case "h":
+  case "--help":
+  case "--h":
     if (DEBUG) console.log(myArgs[0], "- display the help file.");
     // display the apphelp.txt file
     const helpFilePath = path.join(__dirname, "help/apphelp.txt");
@@ -70,7 +63,7 @@ case "s":
     });
     break;
 
-    // If the command is --server, execute server.js
+    // If the command is server or s, log the server initialization event and serve the index.html file
     case "--server":
     case "--s":
       if (DEBUG) console.log(myArgs[0], "- executing server.js");
@@ -95,7 +88,7 @@ case "s":
       break;
   }
 } catch (error) {
-  // error handling for when an unexpected error occurs 
+  // error handling for when an unexpected error occurs
   console.error("An unexpected error occurred:", error);
   logEvents("app", "error", "An unexpected error occurred: " + error);
 }
