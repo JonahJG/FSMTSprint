@@ -338,7 +338,7 @@ function tokenApp() {
           return;
         }
         console.log(data.toString());
-        logEvents("token", "info", "displaying the help file:\n" + data.toString());
+        logEvents("token", "info", "displaying the help file");
       });
       logEvents("token", "info", "--help command executed.");
       break;

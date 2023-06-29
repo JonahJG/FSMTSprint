@@ -50,13 +50,6 @@ try {
       tokenApp();
       break;
 
-// If the command is server or s, log the server initialization event and serve the index.html file
-case "server":
-case "s":
-      if (DEBUG) console.log(myArgs[0], "- executing server.js");
-      logEvents("app", "info", "server has been initialized");
-      require("./server.js");
-      break;
 
   case "--help":
   case "--h":
@@ -70,7 +63,7 @@ case "s":
     });
     break;
 
-    // If the command is --server, execute server.js
+    // If the command is server or s, log the server initialization event and serve the index.html file
     case "--server":
     case "--s":
       if (DEBUG) console.log(myArgs[0], "- executing server.js");

@@ -15,9 +15,9 @@ app --help                      Display help for app usage
 
 Initialization Commands:
 app init --all                                      Creates folder structure and configuration files
-app i -all 
+app i -all
 app init --mkdir                                    Creates the folder structure
-app i --mkdir 
+app i --mkdir
 app init --cat                                      Creates the default configuration files
 app i --cat
 app init --help                                     Display help for app initialization
