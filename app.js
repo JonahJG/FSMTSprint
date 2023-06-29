@@ -58,8 +58,8 @@ case "s":
       require("./server.js");
       break;
 
-  case "help":
-  case "h":
+  case "--help":
+  case "--h":
     if (DEBUG) console.log(myArgs[0], "- display the help file.");
     // display the apphelp.txt file
     const helpFilePath = path.join(__dirname, "help/apphelp.txt");
@@ -95,7 +95,7 @@ case "s":
       break;
   }
 } catch (error) {
-  // error handling for when an unexpected error occurs 
+  // error handling for when an unexpected error occurs
   console.error("An unexpected error occurred:", error);
   logEvents("app", "error", "An unexpected error occurred: " + error);
 }

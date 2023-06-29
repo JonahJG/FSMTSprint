@@ -10,9 +10,8 @@ app init                        Initialization commands for folder structure and
 app config                      Configuration commands for managing app settings
 app token                       Token commands for token generation and retrieval
 app --server                    Starts the server on port 3000
+app --help                      Display help for app usage
 
-Options:
---help Display help for app usage
 
 Initialization Commands:
 app init --all                                      Creates folder structure and configuration files
